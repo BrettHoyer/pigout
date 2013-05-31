@@ -1,0 +1,36 @@
+<%= form_tag('/search', method: :get, remote: :true) do %>
+
+<%= label_tag :location, "Enter Location" %>
+<%= select_tag :location, options_from_collection_for_select(City.all, :name, :name) %>
+
+<%= label_tag :category, "Enter Category" %>
+<%= select_tag(:category, options_for_select([["Pizza", "pizza"],["Cheesesteaks", "cheesesteak"]])) %>
+
+<%= submit_tag "Go!" %>
+<% end %>
+
+
+
+<% if @location !=nil %>
+	
+	
+	<table id="restaurant-names" class="span6">
+	<th>Name</th>
+	<th>Latitude</th>
+	<th>Longitude</th>
+	<% @restaurant_list.each do |restaurant| %>
+		<tr class="restaurant-row">
+			<td><%= restaurant.name %></td>
+			<td><%= restaurant.latitude %></td>
+			<td><%= restaurant.longitude %></td>
+		</tr>
+	<% end %>
+
+</table>
+<% end %>
+
+
+
+
+
+<%= render 'map', restaurant_list: @restaurant_list %>

@@ -1,0 +1,84 @@
+
+  <head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+      html { height: 100% }
+      body { height: 100%; margin: 0px; padding: 0 }
+    </style>
+    <script type="text/javascript"
+      src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWtitc68QDbUuOJD81096HEzBGpNOhrxk&sensor=true">
+    </script>
+    <script type="text/javascript">
+      function initialize() {
+
+        <% restaurants =  restaurant_list %>
+      	<% lat = [] %>
+      	<% lng = [] %> 
+      	<% restaurants.each do |restaurant| %>
+      	<% lat << restaurant.latitude %>
+				<% lng << restaurant.longitude %>
+				<% end %>
+		
+				<% n = lng.count %>
+				<% map_lat = lat.reduce(:+)/n %>
+				<% map_lng = lng.reduce(:+)/n %>
+
+        var mapOptions = {
+          center: new google.maps.LatLng(<%= map_lat %>, <%= map_lng %>),
+          zoom: 12,
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        }
+
+        var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+
+
+			  function addMarker(lat, lng, name) {	
+  	    	var marker = new google.maps.Marker({
+    	      position: new google.maps.LatLng(lat, lng),
+    	      map: map,
+            information: name,
+    	      animation: google.maps.Animation.DROP,
+    	      icon: '/assets/pig.gif'
+  		    });
+
+          return marker
+
+		    }
+
+        var markers = []
+
+        <% restaurants.each do |restaurant|  %>
+  				<% longitude = restaurant.longitude %>
+  				<% latitude = restaurant.latitude %>
+          <% name = restaurant.name %>
+
+          <%= index = index %>
+  		
+  		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= name %>"));
+          
+  		  <% end %>
+         
+        console.log(markers);
+         var infowindow = new google.maps.InfoWindow();
+
+        for (var i = 0, marker; marker = markers[i]; i++) {
+          google.maps.event.addListener(marker, 'click', function(e) {
+            map.panTo(this.getPosition());
+            map.setZoom(13);
+            infowindow.setContent(this.information);
+            infowindow.open(map, this);
+          });
+        } 
+
+     	}
+    
+      google.maps.event.addDomListener(window, 'load', initialize);
+      initialize();
+
+    </script>
+
+  
+  </head>
+  <body>
+    <div id="map-canvas"/>
+  </body>
