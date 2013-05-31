@@ -20,26 +20,21 @@ class Yelp
   end
 
 
-  def self.store_restaurants(location)
+  def self.store_restaurants(location, category)
     @location = location
     @location_for_search = location.gsub(/\s+/, "")
-    pizza_restaurants = pull_yelp_restaurants(@location_for_search, "pizza")
-    pizza_restaurants.each do |pizza_joint|
-      pizza_place = Restaurant.new(name: "#{pizza_joint['name']}", 
+
+    @category = category
+    @category_for_search = category.gsub(/\s+/, "")
+
+    restaurants = pull_yelp_restaurants(@location_for_search, @category_for_search)
+    restaurants.each do |restaurant|
+      restaurant = Restaurant.new(name: "#{restaurant['name']}", 
                                    city_id: City.find_by_name(@location).id, 
                                    category_id: "#{Category.find_by_name('pizza').id}",
-                                   latitude: pizza_joint['location']['coordinate']['latitude'],
-                                   longitude: pizza_joint['location']['coordinate']['longitude'])
-      pizza_place.save
-    end
-    cheesesteak_restaurants = pull_yelp_restaurants(@location_for_search, "cheesesteak")
-    cheesesteak_restaurants.each do |cheesesteak_joint|
-      cheesesteak_place = Restaurant.new(name: "#{cheesesteak_joint['name']}", 
-                                         city_id: City.find_by_name(@location).id, 
-                                         category_id: "#{Category.find_by_name('cheesesteak').id}",
-                                         latitude: cheesesteak_joint['location']['coordinate']['latitude'],
-                                         longitude: cheesesteak_joint['location']['coordinate']['longitude'])
-      cheesesteak_place.save
+                                   latitude: restaurant['location']['coordinate']['latitude'],
+                                   longitude: restaurant['location']['coordinate']['longitude'])
+      restaurant.save
     end
   end
 
