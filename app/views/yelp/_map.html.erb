@@ -10,8 +10,11 @@
     </script>
     <script type="text/javascript">
       function initialize() {
+         <% if ! restaurant_list.nil? %>
+         <% @restaurant_list = restaurant_list %>
+        <% end %>
 
-        <% restaurants = restaurant_list %>
+        <% restaurants = @restaurant_list %>
       	<% lat = [] %>
       	<% lng = [] %> 
       	<% restaurants.each do |restaurant| %>
