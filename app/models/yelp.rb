@@ -29,12 +29,12 @@ class Yelp
 
     restaurants = pull_yelp_restaurants(@location_for_search, @category_for_search)
     restaurants.each do |restaurant|
-      restaurant = Restaurant.new(name: "#{restaurant['name']}", 
+      new_restaurant = Restaurant.new(name: "#{restaurant['name']}", 
                                    city_id: City.find_by_name(@location).id, 
-                                   category_id: "#{Category.find_by_name('pizza').id}",
+                                   category_id: Category.find_by_name(@category).id,
                                    latitude: restaurant['location']['coordinate']['latitude'],
                                    longitude: restaurant['location']['coordinate']['longitude'])
-      restaurant.save
+      new_restaurant.save
     end
   end
 

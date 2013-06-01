@@ -6,11 +6,18 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-cities = ["Philadelphia", "New York", "Washington, DC, San Francisco, Los Angeles, Chicago, Houston, New Orleans, Miami"]
+cities = ["Philadelphia", "San Francisco"]
 categories = ["Pizza", "Cheesesteaks", "Indian", "Mexican"]
 
 City.destroy_all
-cities.each { |city| City.create(name: "#{city}")}
+cities.each { |city| City.create(name: city) }
 
 Category.destroy_all
-categories.each { |category| Category.create(name: "#{category}")}
+categories.each { |category| Category.create!(name: category) }
+
+Restaurant.destroy_all
+City.all.each do |city|
+	Category.all.each do |cat|
+		Yelp.store_restaurants(city.name, cat.name)
+	end
+end

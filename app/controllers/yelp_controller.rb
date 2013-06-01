@@ -4,7 +4,7 @@ class YelpController < ApplicationController
 	def index
 		# @location = current_user.city.gsub(/\s+/, "")
 		@location = 'Philadelphia'
-		@category = "pizza"
+		@category = "Pizza"
 		@restaurant_list = Restaurant.where(city_id: City.find_by_name(@location).id , category_id: Category.find_by_name(@category).id) 
 	end
 

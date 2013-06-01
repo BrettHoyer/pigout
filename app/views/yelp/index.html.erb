@@ -4,7 +4,7 @@
 <%= select_tag :location, options_from_collection_for_select(City.all, :name, :name) %>
 
 <%= label_tag :category, "Enter Category" %>
-<%= select_tag(:category, options_for_select([["Pizza", "pizza"],["Cheesesteaks", "cheesesteak"]])) %>
+<%= select_tag(:category, options_from_collection_for_select(Category.all, :name, :name)) %>
 
 <%= submit_tag "Go!" %>
 <% end %>
