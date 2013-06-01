@@ -35,11 +35,11 @@
         var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
 
-			  function addMarker(lat, lng, name) {	
+			  function addMarker(lat, lng, content) {	
   	    	var marker = new google.maps.Marker({
     	      position: new google.maps.LatLng(lat, lng),
     	      map: map,
-            information: name,
+            information: content,
     	      animation: google.maps.Animation.DROP,
     	      icon: '/assets/pig.gif'
   		    });
@@ -53,11 +53,12 @@
         <% restaurants.each do |restaurant|  %>
   				<% longitude = restaurant.longitude %>
   				<% latitude = restaurant.latitude %>
-          <% name = restaurant.name %>
+          // <% content = { name: restaurant.name, rating: restaurant.rating, rating_image: restaurant.rating_image, display_address: restaurant.display_address, url: restaurant.url, phone: restaurant.phone } %>
 
-          <%= index = index %>
+          <% content = "<h4 class=info-window-name>"+restaurant.name+"</h4>"+"<img src='"+restaurant.rating_image+"'/>"+"<p>"+restaurant.phone+"</p>"  %>
+
   		
-  		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= name %>"));
+  		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= content.html_safe %>"));
           
   		  <% end %>
          

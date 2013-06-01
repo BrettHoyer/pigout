@@ -33,7 +33,14 @@ class Yelp
                                    city_id: City.find_by_name(@location).id, 
                                    category_id: Category.find_by_name(@category).id,
                                    latitude: restaurant['location']['coordinate']['latitude'],
-                                   longitude: restaurant['location']['coordinate']['longitude'])
+                                   longitude: restaurant['location']['coordinate']['longitude'],
+                                   phone: restaurant['display_phone'],
+                                   url: restaurant['url'],
+                                   rating: restaurant['rating'],
+                                   rating_image: restaurant['rating_img_url'],
+                                   display_address: restaurant['location']['display_address'],
+                                   neighborhoods: restaurant['location']['neighborhoods'].to_s
+                                    )
       new_restaurant.save
     end
   end
