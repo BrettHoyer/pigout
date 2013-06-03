@@ -3,7 +3,7 @@
 	<th>Latitude</th>
 	<th>Longitude</th>
   <% restaurant_list.each do |restaurant| %>
-	<tr class="restaurant-row">
+	<tr class="restaurant-row" onclick="showMarker">
 		<td><%= restaurant.name %></td>
 		<td><%= restaurant.latitude %></td>
 		<td><%= restaurant.longitude %></td>

@@ -1,0 +1,21 @@
+<h1>Listing favorites</h1>
+
+<table>
+  <tr>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @favorites.each do |favorite| %>
+  <tr>
+    <td><%= link_to 'Show', favorite %></td>
+    <td><%= link_to 'Edit', edit_favorite_path(favorite) %></td>
+    <td><%= link_to 'Destroy', favorite, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Favorite', new_favorite_path %>

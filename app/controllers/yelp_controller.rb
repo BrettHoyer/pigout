@@ -2,6 +2,7 @@ class YelpController < ApplicationController
 	before_filter :authenticate_user!
 
 	def index
+		@favorite = Favorite.new
 		# @location = current_user.city.gsub(/\s+/, "")
 		@location = 'Philadelphia'
 		@category = "Pizza"

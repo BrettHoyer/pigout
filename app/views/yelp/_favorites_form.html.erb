@@ -1,0 +1,11 @@
+<%= form_for @favorite, remote: true do |f| %>
+
+  <%= f.hidden_field :user_id, value: current_user.id %>
+  <%= f.hidden_field :city_id, value: restaurant.city_id %>
+  <%= f.hidden_field :category_id, value: restaurant.category_id %>
+  <%= f.hidden_field :restaurant_id, value: restaurant.id %>
+    
+  <%= f.button(class: "favorite-button") do %>
+    Favorite! <i class="icon-star"></i>
+  <% end %>
+<% end %>

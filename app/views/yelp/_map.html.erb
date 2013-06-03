@@ -54,16 +54,18 @@
   				<% longitude = restaurant.longitude %>
   				<% latitude = restaurant.latitude %>
           // <% content = { name: restaurant.name, rating: restaurant.rating, rating_image: restaurant.rating_image, display_address: restaurant.display_address, url: restaurant.url, phone: restaurant.phone } %>
-
-          <% content = "<h4 class=info-window-name>"+restaurant.name+"</h4>"+"<img src='"+restaurant.rating_image+"'/>"+"<p>"+restaurant.phone+"</p>"  %>
+          <% if current_user.favorites.where(restaurant_id: restaurant.id).empty? %>
+          <% content = "</h4>" + restaurant.name + "</h4>" + "#{escape_javascript(render('favorites_form', restaurant: restaurant))}" %>
+          <% else %>
+          <% content = "</h4>" + restaurant.name + "</h4>" + "<p id='infowindow-favorite-text'>Marked as favorite!</p>" %>
+          <% end %>
 
   		
   		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= content.html_safe %>"));
           
   		  <% end %>
          
-        console.log(markers);
-         var infowindow = new google.maps.InfoWindow();
+        var infowindow = new google.maps.InfoWindow();
 
         for (var i = 0, marker; marker = markers[i]; i++) {
           google.maps.event.addListener(marker, 'click', function(e) {
@@ -73,11 +75,14 @@
             infowindow.open(map, this);
           });
         } 
-
-     	}
+      
+    }
     
       google.maps.event.addDomListener(window, 'load', initialize);
       initialize();
+
+    
+   
 
     </script>
 

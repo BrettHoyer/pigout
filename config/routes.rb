@@ -4,8 +4,9 @@ Pigout::Application.routes.draw do
 
   root to: 'Yelp#index' 
 
+
   match '/index' => 'Yelp#index'
   match '/search' => 'Yelp#search'
 
-
+  resources :favorites
  end
