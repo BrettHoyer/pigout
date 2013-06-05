@@ -12,24 +12,9 @@
 
 
 <% if @location !=nil %>
-	
-	
-	<table id="restaurant-names" class="span6">
-	<th>Name</th>
-	<th>Latitude</th>
-	<th>Longitude</th>
-	<% @restaurant_list.each do |restaurant| %>
-		<tr class="restaurant-row">
-			<td><%= restaurant.name %></td>
-			<td><%= restaurant.latitude %></td>
-			<td><%= restaurant.longitude %></td>
-		</tr>
-	<% end %>
-
+	<%= render 'list', restaurant_list: @restaurant_list %>
 </table>
 <% end %>
-
-
 
 
 

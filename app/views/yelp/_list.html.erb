@@ -2,11 +2,13 @@
 	<th>Name</th>
 	<th>Latitude</th>
 	<th>Longitude</th>
+	<th>Favorite</th>
   <% restaurant_list.each do |restaurant| %>
 	<tr class="restaurant-row" onclick="showMarker">
 		<td><%= restaurant.name %></td>
 		<td><%= restaurant.latitude %></td>
 		<td><%= restaurant.longitude %></td>
+		<td id="restaurant_<%= restaurant.id %>"><%= render 'favorites_form', restaurant: restaurant %></td> 
 	</tr>
 	<% end %>
 

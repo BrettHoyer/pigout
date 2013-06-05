@@ -41,7 +41,8 @@ class FavoritesController < ApplicationController
   # POST /favorites.json
   def create
     @favorite = Favorite.new(params[:favorite])
-
+    @restaurant_id = @favorite.restaurant_id
+    @restaurant_list = Restaurant.where(city_id: params[:favorite][:city_id], category_id: params[:favorite][:category_id])
     respond_to do |format|
       if @favorite.save
       	format.js 
@@ -58,10 +59,12 @@ class FavoritesController < ApplicationController
   # PUT /favorites/1.json
   def update
     @favorite = Favorite.find(params[:id])
+    @restaurant_id = params[:favorite][:restaurant_id]
+    @restaurant_list = Restaurant.where(city_id: params[:favorite][:city_id], category_id: params[:favorite][:category_id])
 
     respond_to do |format|
       if @favorite.update_attributes(params[:favorite])
-        format.html { redirect_to @favorite, notice: 'Favorite was successfully updated.' }
+        format.js
         format.json { head :no_content }
       else
         format.html { render action: "edit" }

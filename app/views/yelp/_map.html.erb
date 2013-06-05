@@ -14,10 +14,10 @@
          <% @restaurant_list = restaurant_list %>
         <% end %>
 
-        <% restaurants = @restaurant_list %>
+        <% @restaurants = @restaurant_list %>
       	<% lat = [] %>
       	<% lng = [] %> 
-      	<% restaurants.each do |restaurant| %>
+      	<% @restaurants.each do |restaurant| %>
       	<% lat << restaurant.latitude %>
 				<% lng << restaurant.longitude %>
 				<% end %>
@@ -35,47 +35,60 @@
         var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
 
-			  function addMarker(lat, lng, content) {	
+			  function addMarker(lat, lng, content, symbol) {	
+          // console.log(logo)
+          function animate(symbol){
+            if (symbol == "/assets/pig.gif"){
+              return google.maps.Animation.DROP
+            }else{
+              return google.maps.Animation.BOUNCE
+            }
+          };
+
   	    	var marker = new google.maps.Marker({
     	      position: new google.maps.LatLng(lat, lng),
     	      map: map,
             information: content,
-    	      animation: google.maps.Animation.DROP,
-    	      icon: '/assets/pig.gif'
+            icon: symbol,
+            animation: animate(symbol)
   		    });
 
           return marker
 
 		    }
 
+        function setInfoWindow(){
         var markers = []
 
-        <% restaurants.each do |restaurant|  %>
-  				<% longitude = restaurant.longitude %>
-  				<% latitude = restaurant.latitude %>
-          // <% content = { name: restaurant.name, rating: restaurant.rating, rating_image: restaurant.rating_image, display_address: restaurant.display_address, url: restaurant.url, phone: restaurant.phone } %>
-          <% if current_user.favorites.where(restaurant_id: restaurant.id).empty? %>
-          <% content = "</h4>" + restaurant.name + "</h4>" + "#{escape_javascript(render('favorites_form', restaurant: restaurant))}" %>
-          <% else %>
-          <% content = "</h4>" + restaurant.name + "</h4>" + "<p id='infowindow-favorite-text'>Marked as favorite!</p>" %>
-          <% end %>
+          <% @restaurants.each do |restaurant|  %>
+    				<% longitude = restaurant.longitude %>
+    				<% latitude = restaurant.latitude %>
+            // <% content = { name: restaurant.name, rating: restaurant.rating, rating_image: restaurant.rating_image, display_address: restaurant.display_address, url: restaurant.url, phone: restaurant.phone } %>
+            <% if current_user.favorites.where(restaurant_id: restaurant.id).empty? %>
+            <% content = "<h4>" + restaurant.name + "</h4>" + "#{escape_javascript(render('yelp/favorites_form', restaurant: restaurant))}" %>
+            <% symbol = '/assets/pig.gif' %>
+            <% else %>
+            <% content = "<h4>" + restaurant.name + "</h4>" + "<p id='infowindow-favorite-text'>Marked as favorite!</p>" %>
+            <% symbol = '/assets/hamburger.png' %>
+            <% end %>
 
-  		
-  		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= content.html_safe %>"));
-          
-  		  <% end %>
-         
-        var infowindow = new google.maps.InfoWindow();
+    		    
+    		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= content.html_safe %>", "<%= symbol %>"));
+            
+    		  <% end %>
+           
+          var infowindow = new google.maps.InfoWindow();
 
-        for (var i = 0, marker; marker = markers[i]; i++) {
-          google.maps.event.addListener(marker, 'click', function(e) {
-            map.panTo(this.getPosition());
-            map.setZoom(13);
-            infowindow.setContent(this.information);
-            infowindow.open(map, this);
-          });
-        } 
-
+          for (var i = 0, marker; marker = markers[i]; i++) {
+            google.maps.event.addListener(marker, 'click', function(e) {
+              map.panTo(this.getPosition());
+              map.setZoom(13);
+              infowindow.setContent(this.information);
+              infowindow.open(map, this);
+            });
+          } 
+        }
+        setInfoWindow();
       
     }
     
