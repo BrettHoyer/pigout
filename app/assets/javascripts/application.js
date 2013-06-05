@@ -41,3 +41,6 @@ $(document).ajaxStart(function(){
 			var spinner = new Spinner(opts).spin(target);
 });
 
+$(document).ajaxStop(function(){
+	  setTimeout(function(){alert("donezo")}, 500);
+});
