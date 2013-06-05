@@ -50,6 +50,7 @@
     	      map: map,
             information: content,
             icon: symbol,
+            optimized: false,
             animation: animate(symbol)
   		    });
 
@@ -65,10 +66,18 @@
     				<% latitude = restaurant.latitude %>
             // <% content = { name: restaurant.name, rating: restaurant.rating, rating_image: restaurant.rating_image, display_address: restaurant.display_address, url: restaurant.url, phone: restaurant.phone } %>
             <% if current_user.favorites.where(restaurant_id: restaurant.id).empty? %>
-            <% content = "<h4>" + restaurant.name + "</h4>" + "#{escape_javascript(render('yelp/favorites_form', restaurant: restaurant))}" %>
+            <% content = "<h4>" + restaurant.name + "</h4>" + 
+                         "<img src ='" + restaurant.rating_image + "'/>" +
+                         "<a href='" + restaurant.url + "'>#{restaurant.name} on Yelp</a>" +
+                         "#{escape_javascript(render('yelp/favorites_form', restaurant: restaurant))}" %>
             <% symbol = '/assets/pig.gif' %>
             <% else %>
-            <% content = "<h4>" + restaurant.name + "</h4>" + "<p id='infowindow-favorite-text'>Marked as favorite!</p>" %>
+            <% content = "<h4>" + restaurant.name + "</h4>" + 
+                         "<img src ='" + restaurant.rating_image + "'/>" +
+                         "<a href='" + restaurant.url + "'>#{restaurant.name} on Yelp</a>" +
+                         "<p id='infowindow-favorite-text'>Marked as favorite!</p>" 
+                         %>
+
             <% symbol = '/assets/hamburger.png' %>
             <% end %>
 
