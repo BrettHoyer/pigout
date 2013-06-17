@@ -37,6 +37,9 @@ gem 'devise'
 
 gem 'spinjs-rails'
 
+gem 'omniauth'
+gem 'omniauth-facebook', '1.4.0'
+
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'

@@ -1,8 +1,10 @@
-$('#new_favorite').html("<p id='infowindow-favorite-text'>Marked as favorite!</p>");
+$('td.favorite-mark').addClass("fav-form")
+$('#new_favorite').html("<p id='infowindow-favorite-text'>Marked as favorite!</p>")
+
 
 <% @restaurant_list.each do |restaurant| %>
 $('#restaurant_<%= restaurant.id %>').html("<%= escape_javascript(render('yelp/favorites_form', restaurant: restaurant)) %>");
 <% end %>
 
-$('#restaurant_<%= @restaurant_id %>').html('<p class=fav-button>Marked as Favorite!<i class="icon-star" /></p>');
+$('#restaurant_<%= @restaurant_id %>').html('<p class=fav-button>Marked as Favorite!<i class="icon-star" /></p>')
 $('#map-canvas').html("<%= escape_javascript(render('yelp/map', restaurant_list: @restaurant_list)) %>");

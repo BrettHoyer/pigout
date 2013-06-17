@@ -8,10 +8,15 @@
 		<td class="name"><%= restaurant.name %></td>
 		<td class="lat"><%= restaurant.latitude %></td>
 		<td class="lng"><%= restaurant.longitude %></td>
+		<% if current_user.favorites.where(restaurant_id: restaurant.id).empty? %>
 		<td class="fav-form" id="restaurant_<%= restaurant.id %>"><%= render 'favorites_form', restaurant: restaurant %></td> 
+		<% else %> 
+		<td id='restaurant_<%= restaurant.id %>' class='favorite-mark'><p class='fav-button'>Marked as Favorite!<i class="icon-star" /></p></td>
+		<% end %>
 	</tr>
 	<% end %>
 
 </table>
+
 
 
