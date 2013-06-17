@@ -1,3 +1,5 @@
+
+
 <%= form_tag('/search', method: :get, remote: :true) do %>
 
 <%= label_tag :location, "Enter Location" %>
@@ -8,13 +10,20 @@
 
 <%= submit_tag "Go!" %>
 <% end %>
+<div class='container'>
+
+<%= render 'list', restaurant_list: @restaurant_list %>
+
+<%= render 'yelp/map', restaurant_list: @restaurant_list %> 
 
 
+</div>
+
+<script>
+$('.restaurant-row').hover(function(){
+	$(this).children('td.fav-form').children('form').slideToggle();
+})
 
 
-	<%= render 'list', restaurant_list: @restaurant_list %>
+</script>
 
-
-
-
-<%= render 'yelp/map', restaurant_list: @restaurant_list %>

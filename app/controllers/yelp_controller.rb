@@ -21,7 +21,12 @@ class YelpController < ApplicationController
 		@category = params[:category]
 
 		@restaurant_list = Restaurant.where(city_id: City.find_by_name(@location).id , category_id: Category.find_by_name(@category).id)
-		@favorite = Favorite.new
+		
+		if Favorite.where(user_id: current_user.id, category_id: Category.find_by_name(@category).id, city_id: City.find_by_name(@location).id).any?
+			@favorite = Favorite.where(user_id: current_user.id, category_id: Category.find_by_name(@category).id, city_id: City.find_by_name(@location).id).first
+		else
+			@favorite = Favorite.new 
+		end
 			respond_to do |format|
 				format.js
 				format.html

@@ -4,5 +4,5 @@ $('#new_favorite').html("<p id='infowindow-favorite-text'>Marked as favorite!</p
 $('#restaurant_<%= restaurant.id %>').html("<%= escape_javascript(render('yelp/favorites_form', restaurant: restaurant)) %>");
 <% end %>
 
-$('#restaurant_<%= @restaurant_id %>').html('<p>Marked as Favorite!</p><i class="icon-star" />')
+$('#restaurant_<%= @restaurant_id %>').html('<p class=fav-button>Marked as Favorite!<i class="icon-star" /></p>')
 $('#map-canvas').html("<%= escape_javascript(render('yelp/map', restaurant_list: @restaurant_list)) %>")

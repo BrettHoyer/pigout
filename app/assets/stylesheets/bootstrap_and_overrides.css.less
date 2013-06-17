@@ -32,7 +32,7 @@
 
 
 .navbar .navbar-inner{
-	background: #fdd7e4;
+	background: grey;
 	min-height: 30px;
 	padding-right: 20px;
 	padding-top: 10px;
@@ -54,16 +54,39 @@ img{
 	max-width: none;
 }
 
-#restaurant-names{
+#restaurants-table{
 	border: 10px solid #fdd7e4;
+	border-collapse: separate;
+	border-spacing: 3px;
 	border-radius: 10px;
+	width: 50%
+}	
+
+#restaurants-table th{
+	border: 3px solid white
 }
 
-#restaurant-names tr:nth-child(odd) {
+.restaurant-row{
+	height: 35px;
+}
+
+.restaurant-row td{
+	padding: 0;
+	margin: 0;
+}
+
+.restaurant-row form{
+	display: none
+}
+#restaurants-table .restaurant-row:hover{
+	background: lightblue
+}
+
+#restaurants-table tr:nth-child(odd) {
 	background: rgba(0,0,0,0.2);
 }
 
-#restaurant-names tr:nth-child(even) {
+#restaurants-table tr:nth-child(even) {
 	background: rgb(253, 215, 228, 0.5)
 }
 
@@ -89,11 +112,28 @@ img{
 #new-favorite{
 	margin: 10px 0 0 0;
 }
-.favorite-button{
-	border-radius: 6px;
+
+.container{
+	padding: 10px;
+	margin: 0;
 }
 
-.favorite-button i{
+.fav-form form{
+	margin: 0;
+}
+
+.fav-button{
+	border-radius: 10px;
+	border: 1px solid black;
+	position: relative;
+	line-height: 10px;
+
+}
+
+.fav-button i{
 	color: yellow;
 }
+
+
+
 

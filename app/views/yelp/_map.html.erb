@@ -1,25 +1,22 @@
 
   <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
-    <style type="text/css">
-      html { height: 100% }
-      body { height: 100%; margin: 0px; padding: 0 }
-    </style>
     <script type="text/javascript"
       src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWtitc68QDbUuOJD81096HEzBGpNOhrxk&sensor=true">
     </script>
     <script type="text/javascript">
-      function initialize() {
-         <% if ! restaurant_list.nil? %>
-         <% @restaurant_list = restaurant_list %>
+      var map
+      var createMap = function() {
+        <% if ! restaurant_list.nil? %>
+          <% @restaurant_list = restaurant_list %>
         <% end %>
 
         <% @restaurants = @restaurant_list %>
-      	<% lat = [] %>
-      	<% lng = [] %> 
+      	<% lat, lng = [], [] %>
+
       	<% @restaurants.each do |restaurant| %>
-      	<% lat << restaurant.latitude %>
-				<% lng << restaurant.longitude %>
+        	<% lat << restaurant.latitude %>
+  				<% lng << restaurant.longitude %>
 				<% end %>
 		
 				<% n = lng.count %>
@@ -32,7 +29,7 @@
           mapTypeId: google.maps.MapTypeId.ROADMAP
         }
 
-        var map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
+        map = new google.maps.Map(document.getElementById("map-canvas"),mapOptions);
 
 
 			  function addMarker(lat, lng, content, symbol) {	
@@ -78,14 +75,19 @@
                          "<p id='infowindow-favorite-text'>Marked as favorite!</p>" 
                          %>
 
-            <% symbol = '/assets/hamburger.png' %>
+            <% symbol = '/assets/small-pig.png' %>
             <% end %>
 
     		    
     		    markers.push(addMarker(<%= latitude %>, <%= longitude %>, "<%= content.html_safe %>", "<%= symbol %>"));
-            
-    		  <% end %>
            
+    		  <% end %>
+
+            $('.restaurant-row').click(function () {
+              id = $(this).attr('id');
+              google.maps.event.trigger(markers[id], 'click')
+            });
+
           var infowindow = new google.maps.InfoWindow();
 
           for (var i = 0, marker; marker = markers[i]; i++) {
@@ -98,11 +100,21 @@
           } 
         }
         setInfoWindow();
+
+     
+        var mark = new google.maps.Marker({
+        position: new google.maps.LatLng(39.5, -75.1),
+        title: "hello",
+        map: map,
+        animation: google.maps.Animation.BOUNCE
+        })  
       
     }
-    
-      google.maps.event.addDomListener(window, 'load', initialize);
-      initialize();
+
+
+      google.maps.event.addDomListener(window, 'load', createMap);
+
+      createMap();
 
     
    

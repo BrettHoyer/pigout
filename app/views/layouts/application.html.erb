@@ -5,11 +5,13 @@
   <%= stylesheet_link_tag    "application", :media => "all" %>
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
+  <%= favicon_link_tag 'favicon.ico' %>
   <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
 </head>
 <body>
 	<div class="navbar navbar-fixed-top">
-		<div class="navbar-inner">
+    <div class="navbar-inner">
+      <%= image_tag 'pig-logo.png', width: '30px' %>
 	    <div class='pull-right'>
 	    	<% if user_signed_in? %>
   	      Logged in as <strong><%= current_user.email %></strong>.
@@ -23,6 +25,7 @@
 	    </div>
   	</div>
   </div>
+
 		
 		<p class="notice"><%= notice %></p>
   	<p class="alert "><%= alert %></p>

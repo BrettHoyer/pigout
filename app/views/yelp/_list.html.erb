@@ -1,16 +1,17 @@
-<table id="restaurant-names" class="span6">
+<table id="restaurants-table">
 	<th>Name</th>
 	<th>Latitude</th>
 	<th>Longitude</th>
 	<th>Favorite</th>
-  <% restaurant_list.each do |restaurant| %>
-	<tr class="restaurant-row" onclick="showMarker">
-		<td><%= restaurant.name %></td>
-		<td><%= restaurant.latitude %></td>
-		<td><%= restaurant.longitude %></td>
-		<td id="restaurant_<%= restaurant.id %>"><%= render 'favorites_form', restaurant: restaurant %></td> 
+  <% restaurant_list.each_with_index do |restaurant, index| %>
+	<tr class="restaurant-row" id='<%= index %>'>
+		<td class="name"><%= restaurant.name %></td>
+		<td class="lat"><%= restaurant.latitude %></td>
+		<td class="lng"><%= restaurant.longitude %></td>
+		<td class="fav-form" id="restaurant_<%= restaurant.id %>"><%= render 'favorites_form', restaurant: restaurant %></td> 
 	</tr>
 	<% end %>
 
 </table>
+
 

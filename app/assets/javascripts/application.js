@@ -16,9 +16,7 @@
 //= require_tree .
 
 
-
-
-$(document).ajaxStart(function(){
+$(document).bind('ajaxSend', function(){
 	      var opts = {
 			  lines: 13, // The number of lines to draw
 			  length: 20, // The length of each line
@@ -39,8 +37,14 @@ $(document).ajaxStart(function(){
 			};
 			var target = document.getElementById('map-canvas');
 			var spinner = new Spinner(opts).spin(target);
-});
+		}).bind('ajaxComplete', function(){
+			// alert('completed')
+		})
 
-$(document).ajaxStop(function(){
-	  setTimeout(function(){alert("donezo")}, 500);
-});
+
+
+
+
+
+
+

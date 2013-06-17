@@ -1,2 +1,6 @@
-$('#restaurant-names').html("<%= escape_javascript(render('list', restaurant_list: @restaurant_list)) %>"); 
+$('#restaurants-table').html("<%= escape_javascript(render('list', restaurant_list: @restaurant_list)) %>"); 
 $('#map-canvas').replaceWith("<%= escape_javascript(render('map', restaurant_list: @restaurant_list)) %>");
+
+$('.restaurant-row').hover(function(){
+	$(this).children('td.fav-form').children('form').slideToggle();
+})

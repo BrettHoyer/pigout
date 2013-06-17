@@ -5,5 +5,5 @@
   <%= f.hidden_field :category_id, value: restaurant.category_id %>
   <%= f.hidden_field :restaurant_id, value: restaurant.id %>
     
-  <%= f.button "Set favorite" %>
+  <%= f.button "Favorite <i class='icon-star'></i>".html_safe, class: 'fav-button' %>
 <% end %>
